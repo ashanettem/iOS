@@ -7,6 +7,15 @@
 
 import UIKit
 
+protocol LoginViewControllerDelegate:AnyObject{
+    //func didLogin( _sender: LoginViewController) //pass data
+    func didLogin()
+}
+
+protocol LogoutDelegate:AnyObject{
+    func didLogout()
+}
+
 class LoginViewController: UIViewController {
     
     let loginView = LoginView()
@@ -15,6 +24,9 @@ class LoginViewController: UIViewController {
     let titleLabel = UILabel()
     let subTitleLabel = UILabel()
     let errorMessageLabel = UILabel()
+    
+    weak var delegate: LoginViewControllerDelegate?
+    
     
     //computer property that return text from username field, returns type optional
     var username:String?{
@@ -27,31 +39,23 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view
         
         style()
         layout()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        signInButton.configuration?.showsActivityIndicator = false
+    }
+
 
 
 }
 
 extension LoginViewController{
     private func style(){
-        
-        //LOGIN VIEW STYLE
-        loginView.translatesAutoresizingMaskIntoConstraints = false
-        
-        //BUTTON STYLE
-        signInButton.translatesAutoresizingMaskIntoConstraints = false
-        //filled style of button, i.e plan, gray, tinted
-        signInButton.configuration = .filled()
-        //distance between image and text/title in button, the activity indicator in this case 
-        signInButton.configuration?.imagePadding = 8
-        //button text
-        signInButton.setTitle("Sign In", for: [])
-        //action that calls selector called signInTapped (function defined in extension)
-        signInButton.addTarget(self, action: #selector(signInTapped), for: .primaryActionTriggered)
         
         //TITLE LABEL
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +77,23 @@ extension LoginViewController{
         subTitleLabel.adjustsFontForContentSizeCategory = true
         subTitleLabel.text = "Your premium source for all things banking!"
         subTitleLabel.isHidden = false
+        
+        //LOGIN VIEW STYLE
+        loginView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        //BUTTON STYLE
+        signInButton.translatesAutoresizingMaskIntoConstraints = false
+        //filled style of button, i.e plan, gray, tinted
+        signInButton.configuration = .filled()
+        //distance between image and text/title in button, the activity indicator in this case 
+        signInButton.configuration?.imagePadding = 8
+        //button text
+        signInButton.setTitle("Sign In", for: [])
+        //action that calls selector called signInTapped (function defined in extension)
+        signInButton.addTarget(self, action: #selector(signInTapped), for: .primaryActionTriggered)
+        
+        
         
         //ERROR MESSAGE LABEL
         errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -168,6 +189,7 @@ extension LoginViewController{
         if username == "Amanda" && password == "welcome"{
             //shows the activity indicator / spining circle
             signInButton.configuration?.showsActivityIndicator = true
+            delegate?.didLogin()
         }
         else{
             configureView(withMessage: "Incorrect username or password")
