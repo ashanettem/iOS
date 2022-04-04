@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = mainViewController
         
         //main view controllers is tab view controller, programmatically select th move money tab view controller
-        mainViewController.selectedIndex =
+        //mainViewController.selectedIndex = 0
         
         return true
     }
