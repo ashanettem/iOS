@@ -7,14 +7,20 @@
 
 import UIKit
 
+//access to this throughout the app
+let appColor:UIColor = .systemTeal
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+   
 
     var window: UIWindow? //reference to window
     
     let loginViewController = LoginViewController()
     let onboardingContainerViewController = OnboardingContainerViewController()
     let dummyViewController = DummyViewController()
+    let mainViewController = MainViewController()
     
     var hasOnboarded = false
     
@@ -29,7 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         onboardingContainerViewController.delegate = self
         dummyViewController.logoutDelegate = self
         
-        window?.rootViewController = loginViewController
+        window?.rootViewController = mainViewController
+        
+        //main view controllers is tab view controller, programmatically select th move money tab view controller
+        mainViewController.selectedIndex =
+        
         return true
     }
     

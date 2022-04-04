@@ -67,6 +67,7 @@ class OnboardingContainerViewController: UIViewController {
         view.backgroundColor = .systemPurple
         
         //3 CRUCIAL STEPS
+        //add page view controller to the view controller that we're in
         //add child view controllers to parent view controller
         //ui page view controller added to selves the container
         addChild(pageViewController)
