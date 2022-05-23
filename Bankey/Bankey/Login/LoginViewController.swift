@@ -120,16 +120,15 @@ extension LoginViewController{
         //AUTO LAYOUT FOR TITLE LABEL
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 14)
+            subTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 3)
         ])
         
         //AUTO LAYOUT FOR SUBTITLE LABEL
         NSLayoutConstraint.activate([
-            subTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.topAnchor, multiplier: 3),
             //set leading constraint to view leading anchor to allow text wrap
-            subTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            subTitleLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
             //set trailing constraint to view trailing anchor to allow text wrap
-            view.trailingAnchor.constraint(equalTo: subTitleLabel.trailingAnchor)
+            subTitleLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor)
         ])
         
         //AUTO LAYOUT FOR LOGIN VIEW
@@ -137,7 +136,7 @@ extension LoginViewController{
             //center loginView on Y axis
             loginView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             //top anchor is below bottom anchor of greeting label
-            loginView.topAnchor.constraint(equalToSystemSpacingBelow: subTitleLabel.bottomAnchor, multiplier: 1),
+            loginView.topAnchor.constraint(equalToSystemSpacingBelow: subTitleLabel.bottomAnchor, multiplier: 3),
             //leading anchor (left) of loginView set to be after leading anchor of the view
             loginView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
             //trailing anchor (right) set to be after trailing anchor of the loginView
