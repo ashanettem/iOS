@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //let dummyViewController = DummyViewController()
     let mainViewController = MainViewController()
     
-    var hasOnboarded = false
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? )->Bool{
         
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -35,8 +33,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         onboardingContainerViewController.delegate = self
         //dummyViewController.logoutDelegate = self
         
+        registerForNotifications()
+        
         displayLogin()
         return true
+    }
+    
+    private func registerForNotifications(){
+        //singleton instance of NotificationCenter, the default
+        //add self as observer, to observe notifications, when notified call didLogout method
+        //name of station tuning into is logout (found in the Utils NSNotificationName)
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: .logout, object: nil)
+        //add @objc in front of didLogout method name
     }
     
     private func displayLogin(){
@@ -57,6 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mainViewController.setStatusBar()
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().backgroundColor = appColor
+        
+    
     }
     
 }
@@ -90,7 +100,7 @@ extension AppDelegate{
 
 
 extension AppDelegate:LoginViewControllerDelegate{
-
+    //displays next screen once user has logged in
     func didLogin() {
        displayNextScreen()
     }
@@ -108,7 +118,7 @@ extension AppDelegate:OnboardingContainerViewControllerDelegate{
 
 extension AppDelegate:LogoutDelegate{
     
-    func didLogout() {
+    @objc func didLogout() {
         setRootViewController(loginViewController)
     }
 }

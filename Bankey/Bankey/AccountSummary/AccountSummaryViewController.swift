@@ -17,10 +17,26 @@ class AccountSummaryViewController: UIViewController {
     //instantiate table view as a control
     var tableView = UITableView()
     
+    //logout ui bar button item, appears in nav controller
+    //lazy vars only instantiated when actually called and not when view is created
+    lazy var logoutBarButtonItem: UIBarButtonItem = {
+        //title - logout, target - self, selector - logout tapped, color - label (syncs for dark mode)
+        let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped))
+        barButtonItem.tintColor = .label
+        return barButtonItem
+    }()
+    
+    
     //standard setup and layout
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupNavigationBar()
+        
+    }
+    
+    func setupNavigationBar(){
+        navigationItem.rightBarButtonItem = logoutBarButtonItem
     }
 }
 
@@ -140,5 +156,12 @@ extension AccountSummaryViewController{
         accounts.append(investment2)
     }
 }
-    
+
+//MARK: Actions
+extension AccountSummaryViewController{
+    //fire logout event or broadcast event
+    @objc func logoutTapped(sender: UIButton){
+        NotificationCenter.default.post(name:.logout, object: nil)
+    }
+}
    

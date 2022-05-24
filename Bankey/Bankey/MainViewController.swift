@@ -44,7 +44,7 @@ class MainViewController:UITabBarController{
         hideNavigationBarLine(summaryNC.navigationBar)
         
         //create an array with all tab bar view controllers
-        let tabBarList = [summaryVC, moneyVC, moreVC]
+        let tabBarList = [summaryNC, moneyNC, moreNC]
         
         //set viewControlers equal to tab bar list array
         viewControllers = tabBarList
