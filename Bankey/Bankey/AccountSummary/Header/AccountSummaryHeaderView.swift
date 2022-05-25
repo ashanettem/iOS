@@ -11,6 +11,7 @@ class AccountSummaryHeaderView: UIView{
     
     
     @IBOutlet var contentView: UIView!
+    var shakeyBellView = ShakeyBellView()
     
     //Regular UIView with CGRect frame and commonInit
     override init(frame: CGRect){
@@ -46,5 +47,18 @@ class AccountSummaryHeaderView: UIView{
         contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     
+        setupShakeyBell()
+    }
+    
+    private func setupShakeyBell(){
+        shakeyBellView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(shakeyBellView)
+        
+        NSLayoutConstraint.activate([
+            shakeyBellView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            shakeyBellView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        
+        ])
     }
 }
+
