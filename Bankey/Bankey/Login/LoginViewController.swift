@@ -237,7 +237,28 @@ extension LoginViewController{
     private func configureView(withMessage message: String){
         errorMessageLabel.isHidden = false
         errorMessageLabel.text = message
+        shakeButton()
         
+    }
+    
+    //shakes login button if credentials incorrect
+    private func shakeButton(){
+        //creates animation of CAKeyframeAnimation
+        let animation = CAKeyframeAnimation()
+        //uses dictionary value of position.x
+        animation.keyPath = "position.x"
+        //change values of position x, start at 0, go right 10, go left 10, 10 right, then 0
+        animation.values = [0, 10, -10, 10, 0]
+        //final position is 1, i.e. 16% - 10, 50% - -10, 83% - 10, and 1 reset back to 0
+        //key frame timings
+        animation.keyTimes = [0, 0.16, 0.5, 0.83, 1]
+        //duration for animation
+        animation.duration = 0.4
+        
+        
+        animation.isAdditive = true
+        //access CA layer and add animation with a key value
+        signInButton.layer.add(animation, forKey:"shake")
     }
 }
 
