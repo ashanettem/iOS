@@ -15,6 +15,9 @@ class ShakeyBellView:UIView{
     //instantiate new imageView of type UIImageView
     //imageView holds the image
     let imageView = UIImageView()
+    let badgeButton = UIButton()
+    
+    let buttonHeight: CGFloat = 16
     
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -44,17 +47,33 @@ extension ShakeyBellView{
         imageView.addGestureRecognizer(singleTap)
         //set user interaction to be true
         imageView.isUserInteractionEnabled = true
+        
+        //BADGE BUTTON
+        badgeButton.translatesAutoresizingMaskIntoConstraints = false
+        //set background color with .backgroundColor
+        badgeButton.backgroundColor = .systemRed
+        //sent font size with UIFont.systemFont of size
+        badgeButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        //CALayer - Core Animation Layer, set the corners to be rounded
+        badgeButton.layer.cornerRadius = buttonHeight/2
+        //set title of the button
+        badgeButton.setTitle("9", for: .normal)
+        //set the title's color on button
+        badgeButton.setTitleColor(.white, for: .normal)
     }
     
     func style(){
         
         self.translatesAutoresizingMaskIntoConstraints = false
         
+        //IMAGE
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         //create a constant var to hold the image created using UIImage, system name of bell.fill, change color to white using tintColor, rendering Mode always Original
         let image = UIImage(systemName: "bell.fill")!.withTintColor(.white, renderingMode: .alwaysOriginal)
         imageView.image = image
+        
+        
         
         
     }
@@ -63,6 +82,7 @@ extension ShakeyBellView{
         
         //add image to subview
         self.addSubview(imageView)
+        self.addSubview(badgeButton)
         
         NSLayoutConstraint.activate([
             //width of 24
@@ -71,6 +91,18 @@ extension ShakeyBellView{
             imageView.heightAnchor.constraint(equalToConstant: 24),
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
+        
+        //BADGE BUTTON
+        NSLayoutConstraint.activate([
+            //top anchor equal to the top anchor of bell view
+            badgeButton.topAnchor.constraint(equalTo: imageView.topAnchor),
+            //leading anchor of badge equivalent to bell's trailing anchor -9
+            badgeButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -9),
+            //width anchor of badge set to button height 16
+            badgeButton.widthAnchor.constraint(equalToConstant: buttonHeight),
+            //height anchor of badge set to button height 16
+            badgeButton.heightAnchor.constraint(equalToConstant: buttonHeight)
         ])
         
     }
